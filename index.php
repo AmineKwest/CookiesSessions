@@ -1,15 +1,45 @@
-<?php include 'session_index.php' ?>
-<?php require 'inc/head.php'; ?>
-
+<?php
+session_start();
+if (!isset($_SESSION['loginname'])) {
+  header('Location: login.php');
+  exit();
+}
+if (!empty($_GET['add_to_cart'])) {
+  $article = $_GET['add_to_cart'];
+  setcookie("cookie[$article]", 0);
+  $allcookies = $_COOKIE['cookie'];
+  //var_dump($allcookies);
+  switch ($_GET['add_to_cart']) {
+    case "pecan_nuts" :
+    $allcookies[$article]++;
+    setcookie("cookie[$article]", $allcookies[$article]);
+    break;
+    case "chocolate_chips" :
+    $allcookies[$article]++;
+    setcookie("cookie[$article]", $allcookies[$article]);
+    break;
+    case "mms_cookie" :
+    $allcookies[$article]++;
+    setcookie("cookie[$article]", $allcookies[$article]);
+    break;
+    case "chocolate_cookie" :
+    $allcookies[$article]++;
+    setcookie("cookie[$article]", $allcookies[$article]);
+    break;
+  }
+  header('Location: index.php');
+  exit();
+}
+require 'inc/head.php'; ?>
 <section class="cookies container-fluid">
   <div class="row">
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
       <figure class="thumbnail text-center">
-        <img src="assets/img/product-46.jpg" alt="cookies choclate chips" class="img-responsive">
+        <img src="assets/img/pecan_nuts.jpg" alt="cookies choclate chips" class="img-responsive"/>
         <figcaption class="caption">
-          <h3>Pecan nuts</h3>
+          <h3 class="cookie_name" >Pecan nuts</h3>
           <p>Cooked by Penny !</p>
-          <a  href="cart.php?id=46" class="btn btn-primary">
+          <a  href="?add_to_cart=pecan_nuts" class="btn btn-primary">
             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add to cart
           </a>
         </figcaption>
@@ -17,11 +47,11 @@
     </div>
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
       <figure class="thumbnail text-center">
-        <img src="assets/img/product-36.jpg" alt="cookies choclate chips" class="img-responsive">
+        <img src="assets/img/chocolate_chips.jpg" alt="cookies choclate chips" class="img-responsive"/>
         <figcaption class="caption">
-          <h3>Chocolate chips</h3>
+          <h3 class="cookie_name">Chocolate chips</h3>
           <p>Cooked by Bernadette !</p>
-          <a  href="cart.php?id=36" class="btn btn-primary">
+          <a  href="?add_to_cart=chocolate_chips" class="btn btn-primary">
             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add to cart
           </a>
         </figcaption>
@@ -29,11 +59,11 @@
     </div>
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
       <figure class="thumbnail text-center">
-        <img src="assets/img/product-58.jpg" alt="cookies choclate chips" class="img-responsive">
+        <img src="assets/img/chocolate_cookie.jpg" alt="cookies choclate chips" class="img-responsive">
         <figcaption class="caption">
-          <h3>Chocolate cookie</h3>
+          <h3 class="cookie_name">Chocolate cookie</h3>
           <p>Cooked by Bernadette !</p>
-          <a  href="cart.php?id=58" class="btn btn-primary">
+          <a  href="?add_to_cart=chocolate_cookie" class="btn btn-primary">
             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add to cart
           </a>
         </figcaption>
@@ -41,18 +71,17 @@
     </div>
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
       <figure class="thumbnail text-center">
-        <img src="assets/img/product-32.jpg" alt="cookies choclate chips" class="img-responsive">
+        <img src="assets/img/mms_cookie.jpg" alt="cookies choclate chips" class="img-responsive">
         <figcaption class="caption">
-          <h3>M&M's&copy; cookies</h3>
+          <h3 class="cookie_name">M&M's&copy; cookies</h3>
           <p>Cooked by Penny !</p>
-          <a  href="cart.php?id=32" class="btn btn-primary">
+          <a  href="?add_to_cart=mms_cookie" class="btn btn-primary">
             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add to cart
           </a>
         </figcaption>
       </figure>
     </div>
+    <a href="logout.php" onClick="">Se déconnecter</a>
   </div>
-   <a href="deconnexion.php" onClick="">Se déconnecter</a>
 </section>
-
 <?php require 'inc/foot.php'; ?>
