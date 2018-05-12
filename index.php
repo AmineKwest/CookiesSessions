@@ -1,9 +1,5 @@
 <?php
 session_start();
-if (!isset($_SESSION['loginname'])) {
-  header('Location: login.php');
-  exit();
-}
 if (!empty($_GET['add_to_cart'])) {
   $article = $_GET['add_to_cart'];
   setcookie("cookie[$article]", 0);
